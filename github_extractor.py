@@ -1,11 +1,11 @@
 import requests
 from dotenv import load_dotenv
 import os
-from models import cria_tabelas, Repositorio, SessionLocal
+from models import create_table, Repository, SessionLocal
 
 load_dotenv()
 
-class DadosRepositorios:
+class DataRepositories:
 
     def __init__(self, owner):
         self.owner = owner
@@ -81,27 +81,22 @@ class DadosRepositorios:
     
     
     def save_repos_to_db(self, names, languages, created_dates, updated_dates):
-        cria_tabelas()
+        create_table()
         session = SessionLocal()
 
         try:
-            # Check if all lists have the same length
             if not (len(names) == len(languages) == len(created_dates) == len(updated_dates)):
                 print("Warning: Lists have different lengths. Data might be inconsistent.")
 
-            # Debug: Print the number of records to be inserted
-            print(f"Attempting to insert {len(names)} records into the database.")
-
-            # Insert data
             for i in range(len(names)):
                 try:
-                    repo_entry = Repositorio(
+                    repo_entry = Repository(
                         repository_name=names[i],
                         language=languages[i] if i < len(languages) else None,
                         created_at=created_dates[i] if i < len(created_dates) else None,
                         updated_at=updated_dates[i] if i < len(updated_dates) else None
                     )
-                    session.add(repo_entry)  # Use add() instead of merge() for new inserts
+                    session.add(repo_entry)  
                 except Exception as e:
                     print(f"Error creating record {i}: {e}")
                     continue

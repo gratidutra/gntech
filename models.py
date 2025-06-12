@@ -12,13 +12,13 @@ engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 Base = declarative_base()
 
-class Repositorio(Base):
-    __tablename__ = 'repositorios'
+class Repository(Base):
+    __tablename__ = 'repositories'
 
     repository_name = Column(String, primary_key=True)
     language = Column(String)
     created_at = Column(String)
     updated_at = Column(String)
 
-def cria_tabelas():
+def create_table():
     Base.metadata.create_all(bind=engine)

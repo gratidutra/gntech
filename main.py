@@ -1,14 +1,17 @@
-from extractor_github import DadosRepositorios
+from github_extractor import DataRepositories
 
 
 if __name__ == "__main__":
+    print('Iniciando a consulta na API')
     owner = 'amzn'  # Troque para o user desejado
-    dados = DadosRepositorios(owner)
-    repos_list = dados.list_repositories()
+    data = DataRepositories(owner)
+    repos_list = data.list_repositories()
     
-    names = dados.repos_name(repos_list)
-    languages = dados.languages_name(repos_list)
-    created_dates = dados.created_date(repos_list)
-    updated_dates = dados.updated_date(repos_list)
+    names = data.repos_name(repos_list)
+    languages = data.languages_name(repos_list)
+    created_dates = data.created_date(repos_list)
+    updated_dates = data.updated_date(repos_list)
 
-    dados.save_repos_to_db(names, languages, created_dates, updated_dates)
+    data.save_repos_to_db(names, languages, created_dates, updated_dates)
+    
+    print('Dados armazenados com Sucesso!')

@@ -1,9 +1,9 @@
-version: '3.8'
+version: '3.12'
 
 services:
   postgres:
     image: postgres:16
-    container_name: meu_postgres
+    container_name: db_postgress
     restart: always
     environment:
       POSTGRES_USER: meuusuario
@@ -14,5 +14,21 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  app:
+      build: .
+      container_name: app
+      depends_on:
+        - postgres
+      environment:
+        - GITHUB_TOKEN=${GITHUB_TOKEN}
+        - DATABASE_URL=${DATABASE_URL}
+      env_file:
+        - .env
+      command: python -u main.py  # -u flag para unbuffered output
+      tty: true  # Mantém o terminal aberto
+      stdin_open: true 
+
 volumes:
   pgdata:
+
+
