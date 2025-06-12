@@ -1,0 +1,15 @@
+name: gntech
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+    - sqlalchemy 
+    - psycopg2
+    - pandas 
+    - requests
+    - jupyterlab
+    - python-dotenv
+    - fastapi
+    - uvicorn
+
+    
